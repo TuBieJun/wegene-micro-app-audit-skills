@@ -15,11 +15,33 @@
 
 仓库：https://github.com/TuBieJun/wegene-micro-app-audit
 
+本仓库采用单技能布局，根目录即技能目录，`SKILL.md` 为入口。
+
+### 全局安装（Zed）
+
 ```sh
-git clone https://github.com/TuBieJun/wegene-micro-app-audit.git
+mkdir -p ~/.agents/skills
+git clone https://github.com/TuBieJun/wegene-micro-app-audit.git ~/.agents/skills/wegene-micro-app-audit
 ```
 
-在 Zed 中打开仓库，技能位于 `.agents/skills/wegene-micro-app-audit/`，可在新对话中发现和调用。也可将该整个目录复制到其他项目的 `.agents/skills/` 下；希望全局使用时复制到 `~/.agents/skills/` 下。
+### 项目级安装
+
+在需要使用技能的项目根目录运行：
+
+```sh
+mkdir -p .agents/skills
+git clone https://github.com/TuBieJun/wegene-micro-app-audit.git .agents/skills/wegene-micro-app-audit
+```
+
+两种方式任选其一；目标目录已存在时不要覆盖。安装后在 Zed 新对话中调用技能。若不使用 Git，也可将根目录的 `SKILL.md`、`report-template.md`、`references.md` 一起复制到上述 `wegene-micro-app-audit` 目录中。
+
+安装目录名应为 `wegene-micro-app-audit`，与技能 frontmatter 的 `name` 一致。仅将本仓库打开为普通项目，并不意味着根目录的技能会被自动发现；应安装到客户端支持的技能目录。
+
+通过 Git 安装的副本可使用以下命令更新（项目级安装时替换路径）：
+
+```sh
+git -C ~/.agents/skills/wegene-micro-app-audit pull --ff-only
+```
 
 启动示例：
 
@@ -55,13 +77,13 @@ git clone https://github.com/TuBieJun/wegene-micro-app-audit.git
 ## 项目结构
 
 ```text
-.agents/skills/wegene-micro-app-audit/
-├── SKILL.md             # 工作流程、启动交互和裁决规则
+wegene-micro-app-audit/
+├── SKILL.md             # 技能入口、启动交互和裁决规则
 ├── report-template.md   # 审核报告模板
-└── references.md        # 来源、复算及审核边界回归场景
-prompt.md               # 需求记录
-readme.md               # 使用说明
-.gitignore              # 排除本地测试材料
+├── references.md        # 来源、复算及审核边界回归场景
+├── prompt.md            # 需求记录（安装时非必需）
+├── readme.md            # 安装与使用说明
+└── .gitignore           # 排除本地测试材料
 ```
 
 ## 维护与版本管理
